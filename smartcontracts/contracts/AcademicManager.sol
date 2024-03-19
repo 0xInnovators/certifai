@@ -103,7 +103,7 @@ contract AcademicManager {
         SchoolRecords[] storage studentRecords = studentRecordsByCourseId[_student][_courseId];
         require(_scores.length == studentRecords.length, unicode"Número inválido de notas fornecidas");
         for (uint256 i = 0; i < _scores.length; i++) {
-            require(studentRecords[i].lessonId == _scores[i].lessonId, unicode"Código da disciplina inválido");
+            require(studentRecords[i].lessonId == _scores[i].lessonId, unicode"Código do módulo inválido");
             studentRecords[i].score = _scores[i].score;
         }
     }
@@ -147,5 +147,9 @@ contract AcademicManager {
             }
         }
         return true; // Se o aluno passou em todas as lições com pontuação mínima, o curso é aprovado
+    }
+
+    function getOwner() external view returns(address){
+        return owner;
     }
 }
