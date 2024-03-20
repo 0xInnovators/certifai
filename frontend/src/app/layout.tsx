@@ -22,10 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="max-w-6xl w-full m-auto bg-blue-400">
+        <div className="max-w-6xl w-full m-auto">
           <Web3Provider>
             <NavBar />
-            <div className="bg-green-300">{children}</div>
+            <div className="">{children}</div>
             <Footer />
             <ToastContainer />
           </Web3Provider>

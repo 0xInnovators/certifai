@@ -6,6 +6,8 @@ import { useAccount, useDisconnect } from 'wagmi'
 import FormatService from '../services/FormatService'
 import { MdClose } from 'react-icons/md'
 import Link from 'next/link'
+import Images from '../services/Images'
+import Image from 'next/image'
 
 function NavBar () {
     const [openMenu, setOpenMenu] = useState(false)
@@ -25,9 +27,7 @@ function NavBar () {
             <div className=" m-auto flex items-center justify-between px-4">
                 <div className="flex items-center w-[50%] justify-start ">
                     <div className="">
-                        LOGO
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        {/* <Image src={'images.logo'} alt='WR NFT Marketplace' width={75} height={75} /> */}
+                        <Image src={Images.logo} alt='CertifAI' width={75} height={75} />
                     </div>
                 </div>
                 <div className="flex items-center w-[50%] justify-end">
