@@ -4,6 +4,8 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Web3Provider from "./providers/Web3Provider";
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +27,7 @@ export default function RootLayout({
             <NavBar />
             <div className="bg-green-300">{children}</div>
             <Footer />
+            <ToastContainer />
           </Web3Provider>
         </div>
       </body>
