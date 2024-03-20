@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-// import { useContractRead} from "wagmi";
 import {
   AcademicManagerSmartContractABI,
   AcademicManagerSmartContractAddress,
@@ -14,13 +13,15 @@ function AllCourses() {
   const result = useReadContract({
     abi: AcademicManagerSmartContractABI,
     address: AcademicManagerSmartContractAddress,
-    functionName: "getAllCourses",
+    functionName: "getAllCourses"
   });
 
   useEffect(() => {
     if (Array.isArray(result.data)) {
       setCourses(result.data);
     }
+    console.log(result.data);
+    
   }, [result.data])
 
   return (

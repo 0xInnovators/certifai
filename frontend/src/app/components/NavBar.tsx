@@ -1,12 +1,9 @@
 'use client'
 import React, { useState } from 'react'
-import Image from 'next/image'
 import { CgMenuRight } from 'react-icons/cg'
 import Menu from './Menu'
-import { useAccount, useDisconnect, Connector, useConnect } from 'wagmi'
-import Button from './Button'
+import { useAccount, useDisconnect } from 'wagmi'
 import FormatService from '../services/FormatService'
-import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { MdClose } from 'react-icons/md'
 import Link from 'next/link'
 
@@ -35,7 +32,7 @@ function NavBar () {
                 </div>
                 <div className="flex items-center w-[50%] justify-end">
                     <div className="flex flex-col items-end ">
-                        {isConnected ? 
+                        {address ? 
                          (
                             <div className='flex flex-row justify-end'>
                                 <div className="flex gap-3 items-center">

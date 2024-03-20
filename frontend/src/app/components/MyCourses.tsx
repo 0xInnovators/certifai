@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-// import { useContractRead} from "wagmi";
 import {
   AcademicManagerSmartContractABI,
   AcademicManagerSmartContractAddress,

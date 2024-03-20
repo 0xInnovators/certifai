@@ -8,6 +8,8 @@ import {
 } from "../blockchain";
 import LessonDescription from "./LessonDescription";
 import HandlingErrorService from "../services/HandlingErrorService";
+import ShowError from "./ShowError";
+import ShowSuccess from "./ShowSuccess";
 
 interface CourseCardProps {
   course: any;
@@ -16,7 +18,7 @@ interface CourseCardProps {
 
 function CourseCard({ course, showEnrollButton }: CourseCardProps) {
   const { isConnected, status } = useAccount();
-  const { writeContract, error } = useWriteContract();
+  const { data: hash, writeContract, error } = useWriteContract();
 
   function handleEnrollCourse(courseId: number) {
     writeContract({
@@ -46,24 +48,18 @@ function CourseCard({ course, showEnrollButton }: CourseCardProps) {
           <LessonDescription lesson={lesson} key={i} />
         ))}
       </div>
-      {error && (
-        <div>
-          {HandlingErrorService.getShortError(
-            (error as BaseError).shortMessage || error.message
-          )}
-        </div>
-      )}
       {showEnrollButton && (
         <div className="w-full flex justify-end">
           <Button
             color="pink"
-            disabled={!isConnected}
             onClick={() => handleEnrollCourse(course.courseId)}
           >
             Matricular
           </Button>
         </div>
       )}
+      <ShowError error={error}/>
+      <ShowSuccess successMessage="Matrícula feita com sucesso" hash={hash as string} />
     </div>
   );
 }
