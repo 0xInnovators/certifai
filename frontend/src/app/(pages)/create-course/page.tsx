@@ -2,10 +2,14 @@
 import Button from "@/app/components/Button";
 import PageTitle from "@/app/components/PageTitle";
 import FormatService from "@/app/services/FormatService";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaTrashCan } from "react-icons/fa6";
-import { useWriteContract, type BaseError } from "wagmi";
+import { useWriteContract, type BaseError, useAccount } from "wagmi";
 import { AcademicManagerSmartContractABI, AcademicManagerSmartContractAddress } from "@/app/blockchain";
+import ShowError from "@/app/components/ShowError";
+import ShowSuccess from "@/app/components/ShowSuccess";
+import { useRouter } from "next/navigation";
+import { ToastService } from "@/app/services/ToastService";
 
 function CreateCoursePage() {
   interface Lesson {
@@ -15,7 +19,9 @@ function CreateCoursePage() {
     mandatory: boolean;
     minimumPassingScore: number;
   }
-  const { writeContract, error } = useWriteContract() 
+  const { data: hash, writeContract, error } = useWriteContract() 
+  const router = useRouter()
+  const {address}  = useAccount()
   const inputClasses =
     "p-2 bg-gray-200 rounded-lg border-gray-700 border outline-none w-full text-gray-600";
   const [courseName, setCourseName] = useState("");
@@ -30,12 +36,12 @@ function CreateCoursePage() {
 
   function handleAddLesson() {
     if (lessonName.length <4 ){
-      alert('Digite um nome para o módulo')
+      ToastService.notifyError('Digite um nome para o módulo')
       return
     }
 
     if (lessonContent.length <4 ){
-      alert('Digite o conteúdo do módulo')
+      ToastService.notifyError('Digite o conteúdo do módulo')
       return
     }
     const newLesson: Lesson = {
@@ -52,6 +58,10 @@ function CreateCoursePage() {
     setLessonContent("");
   }
 
+  useEffect(() => {
+    if (!address) router.push('/')
+  }, [address, router])
+
   function handleCancelAddLesson() {
     setOpenAddLesson(false);
     setLessonName("");
@@ -60,15 +70,15 @@ function CreateCoursePage() {
 
   function handleSaveCourse(){
     if (courseName.length <4 ){
-      // alert('Digite um nome para o curso')
+      ToastService.notifyError('Descreva melhor o nome do curso')
       return
     }
     if (courseDescription.length <4 ){
-      // alert('Digite a descrição do curso')
+      ToastService.notifyError('Descreva melhor a descrição do curso')
       return
     }
     if (lessons.length === 0 ){
-      // alert('Cadastre pelo menos uma disciplina')
+      ToastService.notifyError('Cadastre pelo menos uma disciplina')
       return
     }
     writeContract({ 
@@ -76,8 +86,15 @@ function CreateCoursePage() {
       abi: AcademicManagerSmartContractABI, 
       functionName: 'createCourse', 
       args: [courseName, courseDescription, 'sadfsd', lessons], 
-    }) 
+    })
   }
+  
+  useEffect(() => {
+    setCourseName('')
+    setCourseDescription('')
+    setLessons([])
+  }, [hash])
+  
 
   function handleRemoveLesson(i: number) {
     const updatedLessons = lessons.filter((_, index) => index !== i);
@@ -252,6 +269,7 @@ function CreateCoursePage() {
                         </label>
                         <input
                           type="number"
+                          pattern="\d{1,3}"
                           placeholder=""
                           className={inputClasses}
                           onChange={(e) =>
@@ -284,9 +302,8 @@ function CreateCoursePage() {
             )}
           </div>
         </form>
-        {error && ( 
-        <div>Error: {(error as BaseError).shortMessage || error.message}</div> 
-      )} 
+        <ShowError error={error} />
+        <ShowSuccess successMessage="Curso criado com sucesso" hash={hash as string} />
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import React from 'react'
 function AllCoursesPage() {
   return (
     <div className=''>
-      <PageTitle title='Lista de cursos' subtitle='Aqui, você consegue ver toda a lista de cursos' />
+      <PageTitle title='Lista de cursos' subtitle='Aqui, você consegue ver a lista de cursos' />
       <AllCourses />
     </div>
   )

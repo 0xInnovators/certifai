@@ -22,8 +22,6 @@ function LoginPage() {
   
   return (
     <div>
-      <p className="text-red-500">{status}</p>
-      
       <PageTitle title="Login" subtitle="Escolha sua wallet e faça login." />
       <div className="flex gap-8 w-full items-center justify-center">
         {config.connectors.map((connector) => (
