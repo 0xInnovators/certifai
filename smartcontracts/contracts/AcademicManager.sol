@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity 0.8.20;
+
+import "./Types.sol";
 
 contract AcademicManager {
     error OnlyOwner();
@@ -10,22 +12,6 @@ contract AcademicManager {
     mapping(uint256 => mapping(address => bool)) public enrollments; // courseId => student address
     mapping(address => uint256[]) public enrollmentsByStudent; // student address => courseId[]
     mapping(address => mapping(uint256 => SchoolRecords[])) public studentRecordsByCourseId; // student address => courseId
-
-    struct Course {
-        uint256 courseId;
-        string courseName;
-        string courseDescription;
-        string courseImageURI;
-        Lesson[] lessons;
-    }
-
-    struct Lesson {
-        uint256 lessonId;
-        string lessonName;
-        string lessonContent;
-        bool mandatory;
-        uint256 minimumPassingScore;
-    }
 
     struct SchoolRecords {
         uint256 lessonId;
@@ -46,7 +32,7 @@ contract AcademicManager {
         _;
     }
 
-    constructor() payable {
+    constructor() {
         owner = msg.sender;
     }
 
@@ -78,7 +64,7 @@ contract AcademicManager {
 
     function enrollStudent(uint256 _courseId) external {
         require(_courseId < nextCourseId, unicode"O curso não existe");
-        require(!enrollments[_courseId][msg.sender], unicode"O aluno já está matriculado");
+        require(!enrollments[_courseId][msg.sender], unicode"Você já está matriculado neste curso");
         enrollments[_courseId][msg.sender] = true;
         enrollmentsByStudent[msg.sender].push(_courseId);
         Lesson[] memory lessons = courses[_courseId].lessons;
@@ -140,13 +126,13 @@ contract AcademicManager {
         require(_courseId < nextCourseId, unicode"O curso não existe");
         require(enrollments[_courseId][_student], unicode"O estudante não está matriculado neste curso");
         SchoolRecords[] memory studentRecords = studentRecordsByCourseId[_student][_courseId];
-        require(studentRecords.length > 0, "No records found for this student in the specified course");
+        require(studentRecords.length > 0, unicode"Não foram encontrados registros para este aluno no curso especificado.");
         for (uint256 i = 0; i < studentRecords.length; i++) {
             if (studentRecords[i].score < studentRecords[i].minimumPassingScore) {
                 return false; // Se o aluno não atingiu a pontuação mínima em qualquer lição, o curso não é aprovado
             }
         }
-        return true; // Se o aluno passou em todas as lições com pontuação mínima, o curso é aprovado
+        return true; // Se o aluno passou em todas as lições com pontuação mínima, ele poderá mintar o nft
     }
 
     function getOwner() external view returns(address){

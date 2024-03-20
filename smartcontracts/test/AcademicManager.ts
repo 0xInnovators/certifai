@@ -226,7 +226,7 @@ describe("AcademicManager", function () {
             await academicManager.createCourse(courseName, courseDescription, courseImageURI, lessons);
             const nextCourseId = parseInt(await academicManager.nextCourseId());
             academicManager.connect(student).enrollStudent(nextCourseId - 1);
-            await expect(academicManager.connect(student).enrollStudent(nextCourseId - 1)).to.be.revertedWith('O aluno já está matriculado');
+            await expect(academicManager.connect(student).enrollStudent(nextCourseId - 1)).to.be.revertedWith('Você já está matriculado neste curso');
         });
     });
 });
