@@ -4,10 +4,7 @@ import React from 'react'
 
 function AllCoursesPage() {
   return (
-    <div className=''>
-      <PageTitle title='Lista de cursos' subtitle='Aqui, você consegue ver a lista de cursos' />
-      <AllCourses />
-    </div>
+    <AllCourses />
   )
 }
 

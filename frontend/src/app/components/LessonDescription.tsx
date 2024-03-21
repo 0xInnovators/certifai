@@ -29,17 +29,17 @@ function LessonDescription({ lesson }: LessonDescriptionProps) {
           <p className="text-justify">{lesson.lessonContent}</p>
           <div className="flex w-full">
             <div className="flex flex-col p-2 w-[50%]">
-              <p className="">Módulo obrigatório?</p>
+              <p className="text-center">Módulo obrigatório?</p>
               {lesson.mandatory ? (
-                <p className="">Sim</p>
+                <p className="text-center">Sim</p>
               ) : (
-                <p className="">Não</p>
+                <p className="text-center">Não</p>
               )}
             </div>
             {lesson.mandatory && (
               <div className="flex flex-col p-2 w-[50%]">
-                <p className="">Aprovação com</p>
-                <p className="">{lesson.minimumPassingScore.toString()}</p>
+                <p className="text-center">Aprovação com</p>
+                <p className="text-center">{lesson.minimumPassingScore.toString()} pts</p>
               </div>
             )}
           </div>

@@ -10,6 +10,7 @@ import LessonDescription from "./LessonDescription";
 import HandlingErrorService from "../services/HandlingErrorService";
 import ShowError from "./ShowError";
 import ShowSuccess from "./ShowSuccess";
+import Image from "next/image";
 
 interface CourseCardProps {
   course: any;
@@ -30,16 +31,14 @@ function CourseCard({ course, showEnrollButton }: CourseCardProps) {
   }
 
   return (
-    <div className="max-w-[700px] flex flex-col w-full m-auto p-4 gap-4 rounded-2xl border-gray-500 bg-gray-100 text-gray-600">
-      <div className="flex flex-row gap-4">
-        <div className="">imagem</div>
+    <div className="max-w-[700px] flex flex-col w-full m-auto p-4 gap-4 rounded-2xl border-gray-500 bg-gray-100 text-gray-600 h-full">
+      <div className="flex flex-col gap-4">
+        <Image src={course.courseImageURI} width={300} height={300} alt='certificate preview' objectFit="cover" className="w-full rounded-2xl" />
         <div className="flex flex-col gap-1 w-full">
-          <p className="">id: {course.courseId.toString()}</p>
           <h2 className="text-2xl font-semibold text-justify">
             {course.courseName}
           </h2>
           <p className="text-justify">{course.courseDescription}</p>
-          <p className="">{course.courseImageURI}</p>
         </div>
       </div>
       <div className="flex flex-col">
@@ -51,14 +50,14 @@ function CourseCard({ course, showEnrollButton }: CourseCardProps) {
       {showEnrollButton && (
         <div className="w-full flex justify-end">
           <Button
-            color="pink"
+            color="blue"
             onClick={() => handleEnrollCourse(course.courseId)}
           >
             Matricular
           </Button>
         </div>
       )}
-      <ShowError error={error}/>
+      <ShowError error={error} />
       <ShowSuccess successMessage="Matrícula feita com sucesso" hash={hash as string} />
     </div>
   );

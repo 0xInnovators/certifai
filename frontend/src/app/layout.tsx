@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Create Next App",
+  title: "CertifAI",
   description: "Hackathon Nearx + Optimism",
 };
 
