@@ -15,6 +15,12 @@
 
 ## Start the project
 
+- To create new docker images without cache from docker compose services: run the command below:
+
+```sh
+docker compose build --no-cache
+```
+
 - To initialize the project, simply run the command below:
 
 ```sh
