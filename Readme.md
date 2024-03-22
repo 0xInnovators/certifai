@@ -2,7 +2,7 @@
   <img src="frontend/public/images/logo.png" />
 </p>
 
-# CertAI
+# CertfAI
 
 ## Technologies
 
