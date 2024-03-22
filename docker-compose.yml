@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+
+  blockchain-node:
+    build:
+      context: ./smartcontracts
+      dockerfile: Dockerfile.Node
+    ports:
+      - 8545:8545
+
+  deploy:
+    depends_on:
+      - blockchain-node
+    build:
+      context: ./smartcontracts
+      dockerfile: Dockerfile.Deploy
+
+  frontend:
+    depends_on:
+      - blockchain-node
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
