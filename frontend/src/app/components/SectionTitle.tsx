@@ -5,7 +5,7 @@ interface SectionTitleProps {
 }
 function SectionTitle({ title }: SectionTitleProps) {
     return (
-        <h2 className="w-full text-3xl font-semibold text-gray-200 text-center">{title}</h2>
+        <h2 className="w-full text-3xl font-semibold text-gray-300 text-center">{title}</h2>
     )
 }
 

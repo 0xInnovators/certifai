@@ -31,7 +31,8 @@ function MyCourses({address}: MyCoursesProps) {
       {!courses ? (
         <p className="">Nenhum curso matriculado</p>
       ) : (
-        <div className="w-full md:[w-80%] bg-red-300 flex flex-col gap-4">
+        <div className="w-full flex flex-col gap-4">
+
           {courses.map((course, i) => (
             <CourseCard key={i} course={course} showEnrollButton={false}/>
           ))}

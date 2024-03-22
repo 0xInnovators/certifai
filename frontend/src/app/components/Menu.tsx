@@ -43,7 +43,6 @@ function Menu({ disconnect }: MenuProps) {
   });
 
   useEffect(() => {
-    console.log(result)
     if (result.data) {
       setOwner(result.data as string);
     }
@@ -63,16 +62,16 @@ function Menu({ disconnect }: MenuProps) {
       icon: <MdLibraryBooks />,
     },
     {
-      label: "Lançar notas alunos",
-      url: "student-score",
-      profile: "Owner",
-      icon: <MdAssignment />,
-    },
-    {
       label: "Meus cursos",
       url: "my-courses",
       profile: "Student",
       icon: <FaGraduationCap />,
+    },
+    {
+      label: "Lançar notas alunos",
+      url: "student-score",
+      profile: "Owner",
+      icon: <MdAssignment />,
     },
     {
       label: "Mintar certificado",

@@ -31,7 +31,6 @@ function Features({ children, image, title, to, description, reverse }: Features
                 {address && <>
                     {children}
                 </>}
-                {children}
             </div>
         </div>
     )

@@ -1,9 +1,9 @@
 'use client'
 import MyCourses from '@/app/components/MyCourses'
-import PageTitle from '@/app/components/PageTitle'
 import React, { useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import { useRouter } from "next/navigation";
+import SectionTitle from '@/app/components/SectionTitle'
 
 function MyCoursesPage() {
   const {address}  = useAccount()
@@ -15,7 +15,7 @@ function MyCoursesPage() {
 
   return (
     <div>
-      <PageTitle title='Meus cursos' subtitle='Abaixo a relação de cursos em que você se matriculou!' />
+      <SectionTitle title="Meus cursos" />
       {
         address &&
           <MyCourses address={address}/>

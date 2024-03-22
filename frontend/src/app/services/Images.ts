@@ -7,7 +7,7 @@ import certifai from '../../../public/images/certifai.png'
 import dragon from '../../../public/images/dragon.png'
 import tostudents from '../../../public/images/tostudents.png'
 import toteachers from '../../../public/images/toteachers.png'
-import metamask from '../../../public/images/metamask.png'
+import metamask from '../../../public/images/MetaMask_Fox.png'
 import walletconnect from '../../../public/images/walletconnect.png'
 
 export default{

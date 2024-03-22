@@ -8,11 +8,13 @@ import { MdClose, MdLogin } from 'react-icons/md'
 import Link from 'next/link'
 import Images from '../services/Images'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 function NavBar() {
     const [openMenu, setOpenMenu] = useState(false)
     const { disconnect } = useDisconnect()
-    const { address, isConnected, status } = useAccount()
+    const { address } = useAccount()
+    const pathName = usePathname()
 
     const handleMenu = () => {
         if (openMenu) {
@@ -35,15 +37,19 @@ function NavBar() {
                 </div>
                 <div className="flex items-center w-[50%] justify-end">
                     <div className="flex flex-row items-center gap-6 ">
-                        <Link className='hidden lg:block text-center transition-all ease-in-out hover:scale-110' href='#howitworks'>Como funciona</Link>
-                        <Link className='hidden lg:block text-center transition-all ease-in-out hover:scale-110' href='#courses'>Cursos</Link>
-                        <Link className='hidden lg:block text-center transition-all ease-in-out hover:scale-110' href='#team'>Time</Link>
+                        {
+                            pathName === '/' && <>
+                            <Link className='hidden lg:block text-center transition-all ease-in-out hover:scale-110' href='#howitworks'>Como funciona</Link>
+                            <Link className='hidden lg:block text-center transition-all ease-in-out hover:scale-110' href='#courses'>Cursos</Link>
+                            <Link className='hidden lg:block text-center transition-all ease-in-out hover:scale-110' href='#team'>Time</Link>
+                            </>
+                        }
 
                         {address ?
                             (
                                 <div className='flex flex-row justify-end'>
                                     <div className="flex gap-3 items-center">
-                                        <span className="rounded-lg gap-2 flex flex-row items-center p-2 bg-slate-500 text-white">Conectado com {FormatService.formatAddress(address ? address as string : '')}</span>
+                                        <span className="rounded-lg gap-2 flex flex-row items-center p-2 bg-slate-500 text-white">{FormatService.formatAddress(address ? address as string : '')}</span>
                                         {
                                             !openMenu ? (
                                                 <CgMenuRight onClick={(e) => { handleMenu() }} className='w-8 h-8 cursor-pointer' />

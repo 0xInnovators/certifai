@@ -36,7 +36,7 @@ function LoginPage() {
             {connector.name === 'WalletConnect' &&
               <Image src={Images.walletconnect} width={40} height={40} alt="wallet connect" objectFit="cover" />
             }
-            {connector.name === 'Metamask' &&
+            {connector.name === 'MetaMask' &&
               <Image src={Images.metamask} width={40} height={40} alt="wallet connect" objectFit="cover" />
             }
             <p className="text-sm">{connector.name}</p>

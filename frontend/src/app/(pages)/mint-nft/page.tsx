@@ -3,13 +3,13 @@ import {
   AcademicManagerSmartContractABI,
   AcademicManagerSmartContractAddress,
 } from "@/app/blockchain";
-import PageTitle from "@/app/components/PageTitle";
 import React, { useEffect, useState } from "react";
 import { readContract } from "@wagmi/core";
 import { config } from "@/app/blockchain/config";
 import { useAccount } from "wagmi";
 import StudentMint from "@/app/components/StudentMint";
 import { useRouter } from "next/navigation";
+import SectionTitle from "@/app/components/SectionTitle";
 
 function MintNftPage() {
   const [studentCourses, setStudentCourses] = useState<any | null>(null);
@@ -31,11 +31,11 @@ function MintNftPage() {
       setStudentCourses(result);
     }
     handleFindStudentCourses()
-  }, [])
+  }, [address])
 
   return (
     <div>
-      <PageTitle title='Mintar certificado' subtitle='Caso tenha completado todos os módulos obrigatórios com notas acima da média, poderá mintar seu certificado!' />
+      <SectionTitle title="Mintar certificados em NFTs" />
       {studentCourses && address ? (
         <div className="p-2 flex flex-col gap-2">
           {studentCourses.map((courseEnrolled: any, i: number) => (

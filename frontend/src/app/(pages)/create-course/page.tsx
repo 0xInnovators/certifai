@@ -1,15 +1,19 @@
 "use client";
 import Button from "@/app/components/Button";
-import PageTitle from "@/app/components/PageTitle";
 import FormatService from "@/app/services/FormatService";
 import React, { useEffect, useState } from "react";
 import { FaTrashCan } from "react-icons/fa6";
-import { useWriteContract, type BaseError, useAccount } from "wagmi";
-import { AcademicManagerSmartContractABI, AcademicManagerSmartContractAddress } from "@/app/blockchain";
+import { useWriteContract, useAccount } from "wagmi";
+import {
+  AcademicManagerSmartContractABI,
+  AcademicManagerSmartContractAddress,
+} from "@/app/blockchain";
 import ShowError from "@/app/components/ShowError";
 import ShowSuccess from "@/app/components/ShowSuccess";
 import { useRouter } from "next/navigation";
 import { ToastService } from "@/app/services/ToastService";
+import SectionTitle from "@/app/components/SectionTitle";
+import { FaSave } from "react-icons/fa";
 
 function CreateCoursePage() {
   interface Lesson {
@@ -18,31 +22,36 @@ function CreateCoursePage() {
     lessonContent: string;
     mandatory: boolean;
     minimumPassingScore: number;
+    lessonQuestion: string;
+    lessonDocURI: string;
   }
-  const { data: hash, writeContract, error } = useWriteContract() 
-  const router = useRouter()
-  const {address}  = useAccount()
+  const { data: hash, writeContract, error } = useWriteContract();
+  const router = useRouter();
+  const { address } = useAccount();
   const inputClasses =
     "p-2 bg-gray-200 rounded-lg border-gray-700 border outline-none w-full text-gray-600";
   const [courseName, setCourseName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
+  const [courseImageURI, setCourseImageURI] = useState("https://red-wee-meerkat-231.mypinata.cloud/ipfs/QmPnx58FXC7rpvVJNEAndQsbEnejKm4RSBuYG9yuSiN1e6");
+  const [coursePrice, setCoursePrice] = useState("0");
   const [openAddLesson, setOpenAddLesson] = useState(false);
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [lessonName, setLessonName] = useState("");
   const [lessonContent, setLessonContent] = useState("");
   const [lessonMandatory, setLessonMandatory] = useState(true);
-  const [lessonMinimumPassingScore, setLessonMinimumPassingScore] =
-    useState("70");
+  const [lessonMinimumPassingScore, setLessonMinimumPassingScore] = useState("60")
+  const [lessonDocURI, setLessonDocURI] = useState("");
+  const [lessonQuestion, setLessonQuestion] = useState("");
 
   function handleAddLesson() {
-    if (lessonName.length <4 ){
-      ToastService.notifyError('Digite um nome para o módulo')
-      return
+    if (lessonName.length < 4) {
+      ToastService.notifyError("Digite um nome para o módulo");
+      return;
     }
 
-    if (lessonContent.length <4 ){
-      ToastService.notifyError('Digite o conteúdo do módulo')
-      return
+    if (lessonContent.length < 4) {
+      ToastService.notifyError("Digite o conteúdo do módulo");
+      return;
     }
     const newLesson: Lesson = {
       lessonId: lessons.length,
@@ -50,51 +59,58 @@ function CreateCoursePage() {
       lessonContent: lessonContent,
       mandatory: lessonMandatory,
       minimumPassingScore: parseInt(lessonMinimumPassingScore),
+      lessonQuestion: lessonQuestion,
+      lessonDocURI: lessonDocURI,
     };
     const updatedLessons = [...lessons, newLesson];
     setLessons(updatedLessons);
     setOpenAddLesson(false);
     setLessonName("");
     setLessonContent("");
+    setLessonQuestion("");
+    setLessonDocURI("")
   }
 
   useEffect(() => {
-    if (!address) router.push('/')
-  }, [address, router])
+    if (!address) router.push("/");
+  }, [address, router]);
 
   function handleCancelAddLesson() {
     setOpenAddLesson(false);
     setLessonName("");
     setLessonContent("");
+    setLessonQuestion("");
+    setLessonDocURI("");
   }
 
-  function handleSaveCourse(){
-    if (courseName.length <4 ){
-      ToastService.notifyError('Descreva melhor o nome do curso')
-      return
+  function handleSaveCourse() {
+    if (courseName.length < 4) {
+      ToastService.notifyError("Descreva melhor o nome do curso");
+      return;
     }
-    if (courseDescription.length <4 ){
-      ToastService.notifyError('Descreva melhor a descrição do curso')
-      return
+    if (courseDescription.length < 4) {
+      ToastService.notifyError("Descreva melhor a descrição do curso");
+      return;
     }
-    if (lessons.length === 0 ){
-      ToastService.notifyError('Cadastre pelo menos uma disciplina')
-      return
+    if (lessons.length === 0) {
+      ToastService.notifyError("Cadastre pelo menos um módulo");
+      return;
     }
-    writeContract({ 
-      address: AcademicManagerSmartContractAddress, 
-      abi: AcademicManagerSmartContractABI, 
-      functionName: 'createCourse', 
-      args: [courseName, courseDescription, 'sadfsd', lessons], 
-    })
+    writeContract({
+      address: AcademicManagerSmartContractAddress,
+      abi: AcademicManagerSmartContractABI,
+      functionName: "createCourse",
+      args: [courseName, courseDescription, courseImageURI, coursePrice, lessons],
+    });
   }
-  
+
   useEffect(() => {
-    setCourseName('')
-    setCourseDescription('')
-    setLessons([])
-  }, [hash])
-  
+    setCourseName("");
+    setCourseDescription("");
+    setCourseImageURI("");
+    setCoursePrice("0");
+    setLessons([]);
+  }, [hash]);
 
   function handleRemoveLesson(i: number) {
     const updatedLessons = lessons.filter((_, index) => index !== i);
@@ -149,18 +165,15 @@ function CreateCoursePage() {
       setLessonMinimumPassingScore("0");
     } else {
       setLessonMandatory(true);
-      setLessonMinimumPassingScore("70");
+      setLessonMinimumPassingScore("60");
     }
   };
-  
+
   return (
     <div>
-      <PageTitle
-        title="Cadastrar novo curso"
-        subtitle="Cadastre o novo curso da plataforma"
-      />
-      <div className="flex m-auto flex-col w-full md:w-[500px] p-2">
-        <form>
+      <SectionTitle title="Cadastrar novo curso" />
+      <div className="flex m-auto flex-col w-full md:w-[500px] p-2 text-gray-300">
+        <div className="flex flex-col gap-4">
           <div className="">
             <label htmlFor="name" className="block">
               Nome do curso
@@ -194,29 +207,44 @@ function CreateCoursePage() {
           </div>
           <div className="">
             <label htmlFor="description" className="block">
-              Módulos
+              Local do NFT/imagem (URI)
             </label>
-            {lessons.length === 0 ? (
-              <div className="">Não há módulos cadastrados</div>
-            ) : (
-              <table className="rounded-3xl overflow-hidden w-full">
-                <thead className="bg-secondary-color-medium font-bold text-sm">
-                  {renderHeader()}
-                </thead>
-                <tbody>{renderData()}</tbody>
-              </table>
+            <input
+                type="text"
+                placeholder="Local da imagem (de preferência IPFS)"
+                className={inputClasses}
+                required
+                onChange={(e) => setCourseImageURI(e.target.value)}
+                value={courseImageURI}
+              />
+          </div>
+          {/* <div className="">
+            <label htmlFor="description" className="block">
+              Preço do curso (Em OP)
+            </label>
+            <input
+                type="number"
+                placeholder="Preço do curso (em Eth)"
+                className={inputClasses}
+                required
+                onChange={(e) => setCoursePrice(e.target.value)}
+                value={coursePrice}
+              />
+          </div> */}
+          <div className="">
+            <label htmlFor="description" className="flex flex-row items-center">
+              Módulos
+              {!openAddLesson && (
+                <div
+                  className="h-8 w-8 mx-3 rounded-full bg-gray-300 border border-gray-300 transition-all ease-in-out cursor-pointer text-primary-color-medium flex items-center justify-center font-extrabold hover:bg-primary-color-medium hover:text-gray-300"
+                  onClick={() => setOpenAddLesson(true)}>+</div>
+              )}
+            </label>
+            {lessons.length === 0 && !openAddLesson && (
+              <div className="mt-4">Não há módulos cadastrados</div>
             )}
-            {!openAddLesson ? (
-              <div className="">
-                <Button color="orange" onClick={() => setOpenAddLesson(true)}>
-                  Adicionar módulo
-                </Button>
-                <Button color="orange" onClick={handleSaveCourse}>
-                  Salvar Curso
-                </Button>
-              </div>
-            ) : (
-              <div className="flex flex-col p-10">
+            {openAddLesson && (
+              <div className="flex flex-col p-6">
                 <div className="">
                   <label htmlFor="name" className="block">
                     Nome do módulo
@@ -248,18 +276,35 @@ function CreateCoursePage() {
                     value={lessonContent}
                   ></textarea>
                 </div>
+                <div className="">
+                  <label htmlFor="name" className="block">
+                    Link do conteúdo
+                  </label>
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Link do conteúdo"
+                      className={inputClasses}
+                      required
+                      onChange={(e) => setLessonDocURI(e.target.value)}
+                      value={lessonDocURI}
+                    />
+                  </div>
+                </div>
                 <div className="flex w-full">
-                  <div className="w-1/2">
+                  <div className="w-1/2 h-20">
                     <label htmlFor="mandatory" className="block">
                       Módulo obrigatório?
                     </label>
-                    <input
-                      type="checkbox"
-                      id="myCheckbox"
-                      checked={lessonMandatory}
-                      onChange={handleToggleMandatory}
-                    />
-                    {lessonMandatory ? "sim" : "nao"}
+                    <div className="flex flex-row items-center gap-2">
+                      Sim
+                      <input
+                        type="checkbox"
+                        id="myCheckbox"
+                        checked={lessonMandatory}
+                        onChange={handleToggleMandatory}
+                      />
+                    </div>
                   </div>
                   <div className="w-1/2">
                     {lessonMandatory && (
@@ -282,28 +327,61 @@ function CreateCoursePage() {
                     )}
                   </div>
                 </div>
+                <div className="">
+                  <label htmlFor="description" className="block">
+                    Questões para avaliação
+                  </label>
+                  <textarea
+                    cols={30}
+                    rows={6}
+                    onChange={(e) => setLessonQuestion(e.target.value)}
+                    className={inputClasses}
+                    required
+                    placeholder="Questões para avaliação"
+                    value={lessonQuestion}
+                  ></textarea>
+                </div>
                 <div className="flex flex-row gap-8">
                   <Button
-                    color="orange"
+                    color="gray"
                     className="w-full"
                     onClick={handleAddLesson}
                   >
-                    Salvar
+                    Adicionar módulo
                   </Button>
                   <Button
-                    color="orange"
+                    color="gray"
                     className="w-full"
                     onClick={handleCancelAddLesson}
                   >
-                    Cancelar
+                    Cancelar adição
                   </Button>
                 </div>
               </div>
             )}
+            {lessons.length !== 0 && (
+              <table className="rounded-3xl overflow-hidden w-full mt-3">
+                <thead className="bg-primary-color-strong font-bold text-sm">
+                  {renderHeader()}
+                </thead>
+                <tbody>{renderData()}</tbody>
+              </table>
+            )}
+            {!openAddLesson && (
+              <div className="">
+                {/* <button type="submit">Salvar Curso</button> */}
+                <Button icon={<FaSave />} color="gray" onClick={handleSaveCourse}>
+                  Salvar Curso
+                </Button>
+              </div>
+            )}
           </div>
-        </form>
+        </div>
         <ShowError error={error} />
-        <ShowSuccess successMessage="Curso criado com sucesso" hash={hash as string} />
+        <ShowSuccess
+          successMessage="Curso criado com sucesso"
+          hash={hash as string}
+        />
       </div>
     </div>
   );

@@ -447,7 +447,7 @@ const CertificateNFTSmartContractABI =  [
   }
 ]
 
-const AcademicManagerSmartContractABI =  [
+const AcademicManagerSmartContractABI =     [
   {
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -484,6 +484,12 @@ const AcademicManagerSmartContractABI =  [
         "internalType": "string",
         "name": "courseImageURI",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "coursePrice",
+        "type": "uint256"
       }
     ],
     "name": "CourseCreated",
@@ -507,6 +513,29 @@ const AcademicManagerSmartContractABI =  [
     ],
     "name": "StudentEnrolled",
     "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_courseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_lessonId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_answer",
+        "type": "string"
+      }
+    ],
+    "name": "assignAnswer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "inputs": [
@@ -535,6 +564,21 @@ const AcademicManagerSmartContractABI =  [
           {
             "internalType": "string",
             "name": "lessonContent",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "lessonQuestion",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "lessonAnswer",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "lessonDocURI",
             "type": "string"
           },
           {
@@ -616,6 +660,11 @@ const AcademicManagerSmartContractABI =  [
         "internalType": "string",
         "name": "courseImageURI",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "coursePrice",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -639,6 +688,11 @@ const AcademicManagerSmartContractABI =  [
         "type": "string"
       },
       {
+        "internalType": "uint256",
+        "name": "_coursePrice",
+        "type": "uint256"
+      },
+      {
         "components": [
           {
             "internalType": "uint256",
@@ -653,6 +707,21 @@ const AcademicManagerSmartContractABI =  [
           {
             "internalType": "string",
             "name": "lessonContent",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "lessonQuestion",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "lessonDocURI",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "lessonAnswer",
             "type": "string"
           },
           {
@@ -764,6 +833,11 @@ const AcademicManagerSmartContractABI =  [
             "type": "string"
           },
           {
+            "internalType": "uint256",
+            "name": "coursePrice",
+            "type": "uint256"
+          },
+          {
             "components": [
               {
                 "internalType": "uint256",
@@ -778,6 +852,21 @@ const AcademicManagerSmartContractABI =  [
               {
                 "internalType": "string",
                 "name": "lessonContent",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "lessonQuestion",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "lessonDocURI",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "lessonAnswer",
                 "type": "string"
               },
               {
@@ -837,6 +926,11 @@ const AcademicManagerSmartContractABI =  [
             "type": "string"
           },
           {
+            "internalType": "uint256",
+            "name": "coursePrice",
+            "type": "uint256"
+          },
+          {
             "components": [
               {
                 "internalType": "uint256",
@@ -851,6 +945,21 @@ const AcademicManagerSmartContractABI =  [
               {
                 "internalType": "string",
                 "name": "lessonContent",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "lessonQuestion",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "lessonDocURI",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "lessonAnswer",
                 "type": "string"
               },
               {
@@ -910,6 +1019,11 @@ const AcademicManagerSmartContractABI =  [
             "type": "string"
           },
           {
+            "internalType": "uint256",
+            "name": "coursePrice",
+            "type": "uint256"
+          },
+          {
             "components": [
               {
                 "internalType": "uint256",
@@ -924,6 +1038,21 @@ const AcademicManagerSmartContractABI =  [
               {
                 "internalType": "string",
                 "name": "lessonContent",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "lessonQuestion",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "lessonDocURI",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "lessonAnswer",
                 "type": "string"
               },
               {
@@ -996,6 +1125,21 @@ const AcademicManagerSmartContractABI =  [
             "type": "string"
           },
           {
+            "internalType": "string",
+            "name": "lessonQuestion",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "lessonAnswer",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "lessonDocURI",
+            "type": "string"
+          },
+          {
             "internalType": "bool",
             "name": "mandatory",
             "type": "bool"
@@ -1037,7 +1181,7 @@ const AcademicManagerSmartContractABI =  [
     "name": "owner",
     "outputs": [
       {
-        "internalType": "address",
+        "internalType": "address payable",
         "name": "",
         "type": "address"
       }
@@ -1078,6 +1222,21 @@ const AcademicManagerSmartContractABI =  [
       {
         "internalType": "string",
         "name": "lessonContent",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "lessonQuestion",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "lessonAnswer",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "lessonDocURI",
         "type": "string"
       },
       {

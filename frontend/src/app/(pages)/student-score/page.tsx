@@ -4,25 +4,27 @@ import {
   AcademicManagerSmartContractAddress,
 } from "@/app/blockchain";
 import Button from "@/app/components/Button";
-import PageTitle from "@/app/components/PageTitle";
 import React, { useEffect, useState } from "react";
 import { readContract } from "@wagmi/core";
 import { config } from "@/app/blockchain/config";
 import StudenteCourseScore from "@/app/components/StudentCourseScore";
 import { useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
+import SectionTitle from "@/app/components/SectionTitle";
 
 function StudentScorePage() {
   const inputClasses =
     "p-2 bg-gray-200 rounded-lg border-gray-700 border outline-none w-full text-gray-600";
-  const [studentWallet, setStudentWallet] = useState("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
+  const [studentWallet, setStudentWallet] = useState(
+    "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+  );
   const [studentCourses, setStudentCourses] = useState<any | null>(null);
-  const {address}  = useAccount()
-  const router = useRouter()
+  const { address } = useAccount();
+  const router = useRouter();
 
   useEffect(() => {
-    if (!address) router.push('/')
-  }, [address, router])
+    if (!address) router.push("/");
+  }, [address, router]);
 
   async function handleFindStudentCourses() {
     if (studentWallet.length !== 42) {
@@ -41,12 +43,9 @@ function StudentScorePage() {
 
   return (
     <div>
-      <PageTitle
-        title="Lançar notas dos alunos"
-        subtitle="Aqui, você atualiza a situação do aluno de acordo com suas notas!"
-      />
-      <form className="p-2">
-        <div className="">
+      <SectionTitle title="Lançar notas dos alunos" />
+      <div className="p-2">
+        <div className="w-full md:w-1/2">
           <label htmlFor="name" className="block">
             Informe a Wallet do aluno
           </label>
@@ -60,16 +59,20 @@ function StudentScorePage() {
               value={studentWallet}
             />
           </div>
+          <Button color="blue" onClick={() => handleFindStudentCourses()}>
+            Buscar cursos do aluno
+          </Button>
         </div>
-        <Button color="pink" onClick={() => handleFindStudentCourses()}>
-          Buscar cursos do aluno
-        </Button>
-      </form>
+      </div>
       {studentCourses && studentWallet ? (
         <div className="p-2 flex flex-col gap-2">
           <p className="p-2s">Matrículas do aluno</p>
           {studentCourses.map((courseEnrolled: any, i: number) => (
-            <StudenteCourseScore studentWallet={studentWallet} key={i} courseEnrolled={courseEnrolled} />
+            <StudenteCourseScore
+              studentWallet={studentWallet}
+              key={i}
+              courseEnrolled={courseEnrolled}
+            />
           ))}
         </div>
       ) : (

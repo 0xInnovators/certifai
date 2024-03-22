@@ -14,6 +14,7 @@ import Button from "./Button";
 import { useWriteContract } from "wagmi";
 import ShowError from "./ShowError";
 import ShowSuccess from "./ShowSuccess";
+import { IoIosMedal } from "react-icons/io";
 
 interface StudentMintProps {
   courseEnrolled: any;
@@ -96,15 +97,14 @@ function StudentMint({
             className="w-10 h-10 rounded-full text-white border-gray-600 border bg-gray-600 items-center justify-center flex transition-all ease-in-out hover:bg-gray-100 hover:text-gray-600 cursor-pointer"
             onClick={() =>
               handleFindScores(courseEnrolled.courseId, studentWallet)
-            }
-          >
+            }>
             <FaMagnifyingGlass />
           </div>
         </div>
       </div>
       {openScores && (
         <table className="rounded-3xl overflow-hidden w-full">
-          <thead className="bg-secondary-color-medium font-bold text-sm">
+          <thead className="bg-primary-color-medium font-bold text-sm">
             {renderHeader()}
           </thead>
           <tbody>{renderData()}</tbody>
@@ -112,7 +112,7 @@ function StudentMint({
       )}
       {openScores && 
       <div className="max-w-72 self-end">
-        <Button color="pink" onClick={() => handleMint(courseEnrolled.courseId.toString())}>Mintar certificado</Button>
+        <Button color="blue" icon={<IoIosMedal />} onClick={() => handleMint(courseEnrolled.courseId.toString())}>Mintar certificado</Button>
       </div>
       }
       <ShowError error={error} />

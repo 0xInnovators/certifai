@@ -1,6 +1,4 @@
 import React from "react";
-import HandlingErrorService from "../services/HandlingErrorService";
-import { type BaseError } from "wagmi";
 import FormatService from "../services/FormatService";
 
 interface ShowSuccessProps {

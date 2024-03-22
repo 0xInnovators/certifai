@@ -10,11 +10,15 @@ describe("AcademicManager", function () {
     const courseName = "Introdução ao solidity";
     const courseDescription = "Funcionamento básico da EVM e linguagem solidity";
     const courseImageURI = "https://solidityprogram.com/image.jpg";
+    const coursePrice = 1;
 
     const lesson1 = {
         lessonId: 1,
         lessonName: "Disciplina 1",
         lessonContent: "Conteúdo da disciplina 1",
+        lessonAnswer: "Pergunta disciplina 1",
+        lessonQuestion: "",
+        lessonDocURI : "uridoc",
         mandatory: true,
         minimumPassingScore: 70
     };
@@ -23,6 +27,9 @@ describe("AcademicManager", function () {
         lessonId: 2,
         lessonName: "Disciplina 2",
         lessonContent: "Conteúdo da disciplina 2",
+        lessonAnswer: "Pergunta disciplina 2",
+        lessonQuestion: "",
+        lessonDocURI : "uridoc",
         mandatory: false,
         minimumPassingScore: 60
     };
@@ -45,7 +52,7 @@ describe("AcademicManager", function () {
     describe("createCourse", function () {
         it("Should create a new course", async function () {
             // Create the course
-            await academicManager.createCourse(courseName, courseDescription, courseImageURI, lessons);
+            await academicManager.createCourse(courseName, courseDescription, courseImageURI, coursePrice, lessons);
 
             // Retrieve the course information
             const nextCourseId = parseInt(await academicManager.nextCourseId());
@@ -57,6 +64,7 @@ describe("AcademicManager", function () {
             expect(course.courseName).to.equal(courseName);
             expect(course.courseDescription).to.equal(courseDescription);
             expect(course.courseImageURI).to.equal(courseImageURI);
+            expect(course.coursePrice).to.equal(coursePrice);
 
             // Check if the lessons are correctly stored
             expect(course.lessons.length).to.equal(lessons.length);
@@ -66,24 +74,27 @@ describe("AcademicManager", function () {
                 expect(course.lessons[i].lessonContent).to.equal(lessons[i].lessonContent);
                 expect(course.lessons[i].mandatory).to.equal(lessons[i].mandatory);
                 expect(course.lessons[i].minimumPassingScore).to.equal(lessons[i].minimumPassingScore);
+                expect(course.lessons[i].lessonQuestion).to.equal(lessons[i].lessonQuestion);
+                expect(course.lessons[i].lessonDocURI).to.equal(lessons[i].lessonDocURI);
+                expect(course.lessons[i].lessonAnswer).to.equal("");
             }
         });
 
         it("Should get all courses", async function () {
             // Create the course
-            await academicManager.createCourse(courseName, courseDescription, courseImageURI, lessons);
-            await academicManager.createCourse(courseName, courseDescription, courseImageURI, lessons);
+            await academicManager.createCourse(courseName, courseDescription, courseImageURI, coursePrice, lessons);
+            await academicManager.createCourse(courseName, courseDescription, courseImageURI, coursePrice, lessons);
             const courses = await academicManager.getAllCourses();
             expect(courses.length).to.equal(2);
         });
 
         it("Should revert if CreateCourse not called by the owner", async function () {
-            await expect(academicManager.connect(otherAccount).createCourse(courseName, courseDescription, courseImageURI, lessons)).to.be.revertedWithCustomError(academicManager, 'OnlyOwner')
+            await expect(academicManager.connect(otherAccount).createCourse(courseName, courseDescription, courseImageURI, coursePrice, lessons)).to.be.revertedWithCustomError(academicManager, 'OnlyOwner')
         });
 
         it("Should get a new course", async function () {
             // Create the course
-            await academicManager.createCourse(courseName, courseDescription, courseImageURI, lessons);
+            await academicManager.createCourse(courseName, courseDescription, courseImageURI, coursePrice, lessons);
             // Retrieve the course information
             const nextCourseId = parseInt(await academicManager.nextCourseId());
             const courseId = nextCourseId - 1; // Subtract 1 from the converted regular number
@@ -97,10 +108,10 @@ describe("AcademicManager", function () {
 
         it("Should enroll a student", async function () {
             // Create the course
-            await academicManager.createCourse(courseName, courseDescription, courseImageURI, lessons);
+            await academicManager.createCourse(courseName, courseDescription, courseImageURI, coursePrice, lessons);
             // enroll student
             const nextCourseId = parseInt(await academicManager.nextCourseId());
-            await academicManager.connect(student).enrollStudent(nextCourseId - 1);
+            await academicManager.connect(student).enrollStudent(nextCourseId - 1, { value: coursePrice });
             // Retrieve the enrollment records for the student
             const coursesEnrolled = await academicManager.getCoursesByStudent(student.address);
             // Check if the student is enrolled in the correct course
@@ -115,24 +126,38 @@ describe("AcademicManager", function () {
                 expect(studentCourseRecords[i].lessonId).to.equal(lessons[i].lessonId);
                 expect(studentCourseRecords[i].lessonName).to.equal(lessons[i].lessonName);
                 expect(studentCourseRecords[i].lessonContent).to.equal(lessons[i].lessonContent);
+                expect(studentCourseRecords[i].lessonQuestion).to.equal(lessons[i].lessonQuestion);
+                expect(studentCourseRecords[i].lessonDocURI).to.equal(lessons[i].lessonDocURI);
+                expect(studentCourseRecords[i].lessonAnswer).to.equal("");
                 expect(studentCourseRecords[i].mandatory).to.equal(lessons[i].mandatory);
                 expect(studentCourseRecords[i].minimumPassingScore).to.equal(lessons[i].minimumPassingScore);
                 expect(studentCourseRecords[i].score).to.equal(0); // Score should be initialized to 0
             }
         });
 
-        it("Should enroll a student and add scores", async function () {
+        it("Should not enroll a student without payment", async function () {
             // Create the course
-            await academicManager.createCourse(courseName, courseDescription, courseImageURI, lessons);
+            await academicManager.createCourse(courseName, courseDescription, courseImageURI, coursePrice, lessons);
             // enroll student
             const nextCourseId = parseInt(await academicManager.nextCourseId());
-            await academicManager.connect(student).enrollStudent(nextCourseId - 1);
+            await expect(academicManager.connect(student).enrollStudent(nextCourseId - 1, { value: 0 })).to.be.revertedWith('O pagamento não atende ao preço do curso')            
+        });
+
+        it("Should enroll a student and add scores", async function () {
+            // Create the course
+            await academicManager.createCourse(courseName, courseDescription, courseImageURI, coursePrice, lessons);
+            // enroll student
+            const nextCourseId = parseInt(await academicManager.nextCourseId());
+            await academicManager.connect(student).enrollStudent(nextCourseId - 1, { value: coursePrice });
             const lesson1 = {
                 lessonId: 1,
                 lessonName: "Disciplina 1",
                 lessonContent: "Conteúdo da disciplina 1",
                 mandatory: true,
                 minimumPassingScore: 70,
+                lessonQuestion: "Questao disciplina 1",
+                lessonDocURI : "uridoc",
+                lessonAnswer: "",
                 score: 80
             };
             const lesson2 = {
@@ -140,6 +165,9 @@ describe("AcademicManager", function () {
                 lessonName: "Disciplina 2",
                 lessonContent: "Conteúdo da disciplina 2",
                 mandatory: false,
+                lessonQuestion: "Questao disciplina 2",
+                lessonDocURI : "uridoc",
+                lessonAnswer: "",
                 minimumPassingScore: 60,
                 score: 90
             };
@@ -156,16 +184,19 @@ describe("AcademicManager", function () {
 
         it("Should return true if student has been approved", async function () {
             // Create the course
-            await academicManager.createCourse(courseName, courseDescription, courseImageURI, lessons);
+            await academicManager.createCourse(courseName, courseDescription, courseImageURI, coursePrice, lessons);
             // enroll student
             const nextCourseId = parseInt(await academicManager.nextCourseId());
-            await academicManager.connect(student).enrollStudent(nextCourseId - 1);
+            await academicManager.connect(student).enrollStudent(nextCourseId - 1, { value: coursePrice });
             const lesson1 = {
                 lessonId: 1,
                 lessonName: "Disciplina 1",
                 lessonContent: "Conteúdo da disciplina 1",
                 mandatory: true,
                 minimumPassingScore: 70,
+                lessonQuestion: "Questao disciplina 1",
+                lessonDocURI : "uridoc",
+                lessonAnswer: "",
                 score: 80
             };
             const lesson2 = {
@@ -174,6 +205,9 @@ describe("AcademicManager", function () {
                 lessonContent: "Conteúdo da disciplina 2",
                 mandatory: false,
                 minimumPassingScore: 60,
+                lessonQuestion: "Questao disciplina 2",
+                lessonDocURI : "uridoc",
+                lessonAnswer: "",
                 score: 90
             };
             const _scores = [
@@ -188,16 +222,19 @@ describe("AcademicManager", function () {
 
         it("Should return true if student has NOT been approved", async function () {
             // Create the course
-            await academicManager.createCourse(courseName, courseDescription, courseImageURI, lessons);
+            await academicManager.createCourse(courseName, courseDescription, courseImageURI, coursePrice, lessons);
             // enroll student
             const nextCourseId = parseInt(await academicManager.nextCourseId());
-            await academicManager.connect(student).enrollStudent(nextCourseId - 1);
+            await academicManager.connect(student).enrollStudent(nextCourseId - 1, { value: coursePrice });
             const lesson1 = {
                 lessonId: 1,
                 lessonName: "Disciplina 1",
                 lessonContent: "Conteúdo da disciplina 1",
                 mandatory: true,
                 minimumPassingScore: 70,
+                lessonQuestion: "Questao disciplina 1",
+                lessonDocURI : "uridoc",
+                lessonAnswer: "",
                 score: 90
             };
             const lesson2 = {
@@ -205,6 +242,9 @@ describe("AcademicManager", function () {
                 lessonName: "Disciplina 2",
                 lessonContent: "Conteúdo da disciplina 2",
                 mandatory: false,
+                lessonQuestion: "Questao disciplina 2",
+                lessonDocURI : "uridoc",
+                lessonAnswer: "",
                 minimumPassingScore: 60,
                 score: 20
             };
@@ -219,14 +259,14 @@ describe("AcademicManager", function () {
         });
 
         it("Should throw error at trying to enroll a student in a inexistent course", async function () {
-            await expect(academicManager.connect(student).enrollStudent(0)).to.be.revertedWith('O curso não existe')
+            await expect(academicManager.connect(student).enrollStudent(0, { value: coursePrice })).to.be.revertedWith('O curso não existe')
         });
 
         it("Should throw error at trying to enroll a student twice", async function () {
-            await academicManager.createCourse(courseName, courseDescription, courseImageURI, lessons);
+            await academicManager.createCourse(courseName, courseDescription, courseImageURI, coursePrice, lessons);
             const nextCourseId = parseInt(await academicManager.nextCourseId());
-            academicManager.connect(student).enrollStudent(nextCourseId - 1);
-            await expect(academicManager.connect(student).enrollStudent(nextCourseId - 1)).to.be.revertedWith('Você já está matriculado neste curso');
+            academicManager.connect(student).enrollStudent(nextCourseId - 1, { value: coursePrice });
+            await expect(academicManager.connect(student).enrollStudent(nextCourseId - 1, { value: coursePrice })).to.be.revertedWith('Você já está matriculado neste curso');
         });
     });
 });
