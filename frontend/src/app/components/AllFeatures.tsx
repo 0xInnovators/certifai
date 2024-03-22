@@ -1,8 +1,6 @@
-'use client'
 import React from 'react'
 import Features from './Features'
 import Images from "../services/Images"
-import Button from './Button'
 import { MdAssignment } from 'react-icons/md'
 import { FaGraduationCap } from 'react-icons/fa'
 import { IoIosMedal } from 'react-icons/io'
