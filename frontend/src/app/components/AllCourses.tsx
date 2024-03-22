@@ -12,7 +12,7 @@ function AllCourses() {
   const [courses, setCourses] = useState<any[]>([]);
   const result = useReadContract({
     abi: AcademicManagerSmartContractABI,
-    address: AcademicManagerSmartContractAddress,
+    address: AcademicManagerSmartContractAddress  as `0x${string}`,
     functionName: "getAllCourses",
   });
 

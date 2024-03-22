@@ -15,9 +15,7 @@ import SectionTitle from "@/app/components/SectionTitle";
 function StudentScorePage() {
   const inputClasses =
     "p-2 bg-gray-200 rounded-lg border-gray-700 border outline-none w-full text-gray-600";
-  const [studentWallet, setStudentWallet] = useState(
-    "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
-  );
+  const [studentWallet, setStudentWallet] = useState("");
   const [studentCourses, setStudentCourses] = useState<any | null>(null);
   const { address } = useAccount();
   const router = useRouter();
@@ -32,7 +30,7 @@ function StudentScorePage() {
       return;
     }
     const result = await readContract(config, {
-      address: AcademicManagerSmartContractAddress,
+      address: AcademicManagerSmartContractAddress  as `0x${string}`,
       abi: AcademicManagerSmartContractABI,
       functionName: "getCoursesByStudent",
       args: [studentWallet],

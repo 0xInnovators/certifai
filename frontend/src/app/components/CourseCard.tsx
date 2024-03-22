@@ -23,7 +23,7 @@ function CourseCard({ course, showEnrollButton }: CourseCardProps) {
 
   function handleEnrollCourse(courseId: number) {
     writeContract({
-      address: AcademicManagerSmartContractAddress,
+      address: AcademicManagerSmartContractAddress  as `0x${string}`,
       abi: AcademicManagerSmartContractABI,
       functionName: "enrollStudent",
       args: [courseId],

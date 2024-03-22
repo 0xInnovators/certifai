@@ -15,7 +15,7 @@ function MyCourses({address}: MyCoursesProps) {
   const [courses, setCourses] = useState<any[]>([]);
   const result = useReadContract({
     abi: AcademicManagerSmartContractABI,
-    address: AcademicManagerSmartContractAddress,
+    address: AcademicManagerSmartContractAddress as `0x${string}`,
     functionName: "getCoursesByStudent",
     args: [address],
   });

@@ -11,8 +11,8 @@ function Footer() {
         <div className="flex flex-col justify-start items-center md:flex-row md:justify-around md:items-start w-full gap-20 md:gap-0 py-10 mt-16">
             <div className="flex w-full max-w-[400px] md:w-[30%] flex-col gap-3 items-center justify-center ">
                 <p className="w-full font-extrabold">Smart contracts</p>
-                <p className="w-full">Academic Manager: {FormatService.formatAddress(AcademicManagerSmartContractAddress)}</p>
-                <p className="w-full">CertifAI NFT: {FormatService.formatAddress(CertificateNFTSmartContractAddress)}</p>
+                <p className="w-full">Academic Manager: {FormatService.formatAddress(AcademicManagerSmartContractAddress ?? '')}</p>
+                <p className="w-full">CertifAI NFT: {FormatService.formatAddress(CertificateNFTSmartContractAddress ?? '')}</p>
             </div>
             <div className="flex w-full max-w-[400px] md:w-[30%] flex-col gap-6 items-center justify-center ">
                 <Image src={Images.logo} alt='Footer logo' height={100} width={100} />

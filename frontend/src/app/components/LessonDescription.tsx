@@ -39,7 +39,7 @@ function LessonDescription({ lesson, showAnswerAndQuestions, courseId, studentWa
   useEffect(() => {
     async function handleFindAnswers(courseId: string, studentWallet: string) {
       const result = await readContract(config, {
-        address: AcademicManagerSmartContractAddress,
+        address: AcademicManagerSmartContractAddress  as `0x${string}`,
         abi: AcademicManagerSmartContractABI,
         functionName: "getStudentRecords",
         args: [studentWallet, courseId],
@@ -61,7 +61,7 @@ function LessonDescription({ lesson, showAnswerAndQuestions, courseId, studentWa
 
   function handleSaveAnswer(_courseId: string, _lessonId: string, _answer: string ){
     writeContract({
-      address: AcademicManagerSmartContractAddress,
+      address: AcademicManagerSmartContractAddress  as `0x${string}`,
       abi: AcademicManagerSmartContractABI,
       functionName: "assignAnswer",
       args: [_courseId, _lessonId, _answer],

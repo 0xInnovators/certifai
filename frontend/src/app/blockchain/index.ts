@@ -1,7 +1,7 @@
 import smartContractABI from "./AcademicManager.json";
 
-const AcademicManagerSmartContractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-const CertificateNFTSmartContractAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+const AcademicManagerSmartContractAddress = process.env.NEXT_PUBLIC_ACADEMIC_MANAGER_ADDRESS
+const CertificateNFTSmartContractAddress = process.env.NEXT_PUBLIC_CERTIFAI_ADDRESS;
 const CertificateNFTSmartContractABI =  [
   {
     "inputs": [

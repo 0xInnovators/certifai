@@ -38,7 +38,7 @@ function Menu({ disconnect }: MenuProps) {
 
   const result = useReadContract({
     abi: AcademicManagerSmartContractABI,
-    address: AcademicManagerSmartContractAddress,
+    address: AcademicManagerSmartContractAddress  as `0x${string}`,
     functionName: "getOwner",
   });
 

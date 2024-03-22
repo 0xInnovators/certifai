@@ -23,7 +23,7 @@ function MintNftPage() {
   useEffect(() => {
     async function handleFindStudentCourses() {
       const result = await readContract(config, {
-        address: AcademicManagerSmartContractAddress,
+        address: AcademicManagerSmartContractAddress  as `0x${string}`,
         abi: AcademicManagerSmartContractABI,
         functionName: "getCoursesByStudent",
         args: [address],

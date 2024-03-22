@@ -31,7 +31,7 @@ function StudentMint({
 
   async function handleFindScores(courseId: number, studentWallet: string) {
     const result = await readContract(config, {
-      address: AcademicManagerSmartContractAddress,
+      address: AcademicManagerSmartContractAddress  as `0x${string}`,
       abi: AcademicManagerSmartContractABI,
       functionName: "getStudentRecords",
       args: [studentWallet, courseId],
@@ -42,7 +42,7 @@ function StudentMint({
 
   function handleMint(courseId: number){
     writeContract({ 
-      address: CertificateNFTSmartContractAddress, 
+      address: CertificateNFTSmartContractAddress  as `0x${string}`, 
       abi: CertificateNFTSmartContractABI, 
       functionName: 'generateCertificate', 
       args: [courseId]

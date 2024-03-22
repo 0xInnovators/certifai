@@ -32,7 +32,7 @@ function StudentCourseScore({
 
   async function handleFindScores(courseId: number, studentWallet: string) {
     const result = await readContract(config, {
-      address: AcademicManagerSmartContractAddress,
+      address: AcademicManagerSmartContractAddress  as `0x${string}`,
       abi: AcademicManagerSmartContractABI,
       functionName: "getStudentRecords",
       args: [studentWallet, courseId],
@@ -55,7 +55,7 @@ function StudentCourseScore({
 
   function handleAssignScores(courseId: number) {
     writeContract({
-      address: AcademicManagerSmartContractAddress,
+      address: AcademicManagerSmartContractAddress  as `0x${string}`,
       abi: AcademicManagerSmartContractABI,
       functionName: "assignScores",
       args: [studentWallet, courseId, studentRecords],

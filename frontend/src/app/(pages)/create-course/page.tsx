@@ -97,7 +97,7 @@ function CreateCoursePage() {
       return;
     }
     writeContract({
-      address: AcademicManagerSmartContractAddress,
+      address: AcademicManagerSmartContractAddress as `0x${string}`,
       abi: AcademicManagerSmartContractABI,
       functionName: "createCourse",
       args: [courseName, courseDescription, courseImageURI, coursePrice, lessons],
