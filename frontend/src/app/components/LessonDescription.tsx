@@ -71,7 +71,7 @@ function LessonDescription({ lesson, showAnswerAndQuestions, courseId, studentWa
   return (
     <div className="py-4 flex flex-col gap-2">
       <div
-        className="flex items-center justify-between rounded-lg bg-gray-200 p-2 cursor-pointer"
+        className="flex items-center justify-between rounded-lg bg-primary-color-light p-2 cursor-pointer"
         onClick={toggleOpenData}
       >
         <h4>{lesson.lessonName}</h4>

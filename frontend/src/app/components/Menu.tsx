@@ -61,24 +61,24 @@ function Menu({ disconnect }: MenuProps) {
       profile: "Owner",
       icon: <MdLibraryBooks />,
     },
-    {
-      label: "Meus cursos",
-      url: "my-courses",
-      profile: "Student",
-      icon: <FaGraduationCap />,
-    },
+    // {
+    //   label: "Meus cursos",
+    //   url: "my-courses",
+    //   profile: "Student",
+    //   icon: <FaGraduationCap />,
+    // },
     {
       label: "Lançar notas alunos",
       url: "student-score",
       profile: "Owner",
       icon: <MdAssignment />,
     },
-    {
-      label: "Mintar certificado",
-      url: "mint-nft",
-      profile: "Student",
-      icon: <IoIosMedal />,
-    },
+    // {
+    //   label: "Mintar certificado",
+    //   url: "mint-nft",
+    //   profile: "Student",
+    //   icon: <IoIosMedal />,
+    // },
   ];
 
   const menuItemsStudent: MenuItem[] = [
@@ -103,7 +103,7 @@ function Menu({ disconnect }: MenuProps) {
   ];
 
   return (
-    <div className="text-gray-600">
+    <div className="text-gray-200">
       {address && owner && address === owner && (
         <>
           {menuItemsOwner.map((item, i) => (
@@ -129,7 +129,7 @@ function Menu({ disconnect }: MenuProps) {
         </>
       )}
       <div
-        className="flex w-[240px] justify-center items-center gap-2 hover:text-gray-200 hover:bg-gray-600 transition-all ease-in-out cursor-pointer p-2 rounded-lg"
+        className="flex w-[240px] justify-center items-center gap-2 hover:text-gray-200 hover:bg-primary-color-light transition-all ease-in-out cursor-pointer p-2 rounded-lg"
         onClick={handleDisconnect}
       >
         <MdExitToApp />

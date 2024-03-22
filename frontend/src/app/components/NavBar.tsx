@@ -49,7 +49,7 @@ function NavBar() {
                             (
                                 <div className='flex flex-row justify-end'>
                                     <div className="flex gap-3 items-center">
-                                        <span className="rounded-lg gap-2 flex flex-row items-center p-2 bg-slate-500 text-white">{FormatService.formatAddress(address ? address as string : '')}</span>
+                                        <span className="rounded-lg gap-2 flex flex-row items-center p-2 bg-primary-color-light text-gray-200">{FormatService.formatAddress(address ? address as string : '')}</span>
                                         {
                                             !openMenu ? (
                                                 <CgMenuRight onClick={(e) => { handleMenu() }} className='w-8 h-8 cursor-pointer' />
@@ -59,7 +59,7 @@ function NavBar() {
                                         }
                                     </div>
                                     {openMenu &&
-                                        <div className="absolute mt-10 z-10 flex flex-col bg-gray-200 shadow-right-bottom rounded-xl p-3">
+                                        <div className="absolute mt-10 z-10 flex flex-col bg-primary-color-strong shadow-right-bottom rounded-xl p-3">
                                             <Menu disconnect={disconnect} />
                                         </div>
                                     }

@@ -27,8 +27,8 @@ function MyCourses({address}: MyCoursesProps) {
   }, [result.data])
 
   return (
-    <div className="w-full flex flex-col gap-8">
-      {!courses ? (
+    <div className="w-full flex flex-col gap-8 p-2 ">
+      {courses.length === 0 ? (
         <p className="">Nenhum curso matriculado</p>
       ) : (
         <div className="w-full flex flex-col gap-4">

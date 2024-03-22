@@ -31,7 +31,7 @@ function CourseCard({ course, showEnrollButton }: CourseCardProps) {
   }
 
   return (
-    <div className="w-full flex flex-col m-auto p-4 gap-4 rounded-2xl border-gray-500 bg-gray-100 text-gray-600 h-full">
+    <div className="w-full flex flex-col m-auto p-4 gap-4 rounded-2xl border-gray-500 bg-primary-color-strong text-gray-200 h-full">
       <div className="flex flex-col gap-4 w-full justify-center">
         <div className="max-w-[500px] m-auto my-10">
           <Image src={course.courseImageURI} width={300} height={300} alt='certificate preview' objectFit="cover" className="w-full rounded-2xl" />

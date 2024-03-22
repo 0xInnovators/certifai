@@ -5,6 +5,7 @@ import SocialMedia from './SocialMedia'
 import Images from "@/app/services/Images"
 import { AcademicManagerSmartContractAddress, CertificateNFTSmartContractAddress } from '../blockchain'
 import FormatService from '../services/FormatService'
+import LinkButton from './LinkButton'
 
 function Footer() {
     return (
@@ -17,14 +18,17 @@ function Footer() {
             <div className="flex w-full max-w-[400px] md:w-[30%] flex-col gap-6 items-center justify-center ">
                 <Image src={Images.logo} alt='Footer logo' height={100} width={100} />
                 <p className="m-auto md:mx-6 text-justify text-gray-200 font-semibold text-xl">CertifAI</p>
-                <SocialMedia />
             </div>
             <div className="w-full max-w-[400px] md:w-[30%] flex flex-col gap-4">
-                <h3 className="">Receba nossas newsletter</h3>
+                <LinkButton color='blue' url='https://github.com/0xInnovators/hackathon-optimism/issues/new'>Sugestões/Suporte</LinkButton>
+                <SocialMedia />
+                {/* <a href='https://github.com/0xInnovators/hackathon-optimism/issues/new' className="">Clique aqui</a> */}
+
+                {/* <h3 className="">Receba nossas newsletter</h3>
                 <div className="flex gap-1 items-center justify-between rounded-full px-4 py-2 bg-gray-700">
                     <input type='email' className='grow text-sm outline-none max-w-[75%] bg-transparent text-white' placeholder='Enter your email*' />
                     <RiSendPlaneFill className='text-white cursor-pointer h-4 w-4 mr-2 my-2 hover:scale-125 transition-all ease-in-outs' />
-                </div>
+                </div> */}
             </div>
         </div>
     )

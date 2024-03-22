@@ -10,7 +10,7 @@ interface ItemMenuProps {
 function ItemMenu({ label, url, icon }: ItemMenuProps) {
   return (
     <Link href={`./${url}`}>
-      <div className="flex w-[240px] justify-center items-center gap-2 hover:text-gray-200 hover:bg-gray-600 transition-all ease-in-out cursor-pointer p-2 rounded-lg">
+      <div className="flex w-[240px] justify-center items-center gap-2 hover:text-gray-200 hover:bg-primary-color-light transition-all ease-in-out cursor-pointer p-2 rounded-lg">
         <div className="">{icon}</div>
         <div className="w-full">{label}</div>
       </div>

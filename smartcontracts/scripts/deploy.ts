@@ -9,61 +9,61 @@ async function main() {
   const certifAI = await CERTIFAI.deploy(await am.getAddress());
   console.log(`CERTIFAI deployed to ${await certifAI.getAddress()}`);
 
-  const courseName1 = "Curso de Desenvolvimento de Aplicações Descentralizadas (DApps) com Blockchain";
-  const courseDescription1 = "Aprenda a criar DApps utilizando tecnologias blockchain, contratos inteligentes e integração com Web3.";
-  const courseImageURI1 = "https://red-wee-meerkat-231.mypinata.cloud/ipfs/QmRiTbtJQF3YnBCNkTGGKQQnX4q9GNeLGUM2nJZJKruorJ";
-  const coursePrice1 = BigInt(1000000000000000000)
+  const courseName1 = "Desenvolvimento de Aplicações para DREX: A Nova CBDC Brasileira";
+  const courseDescription1 = "Este curso abrange o desenvolvimento de aplicações financeiras para a Digital Real (DREX), a futura Central Bank Digital Currency (CBDC) do Brasil. Os participantes aprenderão a criar soluções inovadoras utilizando a DREX, explorando sua integração com sistemas financeiros e seu impacto na economia brasileira.";
+  const courseImageURI1 = "https://finsidersbrasil.com.br/wp-content/plugins/seox-image-magick/imagick_convert.php?width=904&height=508&format=.jpg&quality=91&imagick=uploads.finsidersbrasil.com.br/2024/02/drexBC-1024x580.jpg";
+  const coursePrice1 = 100
   
   const courseName2 = "Introdução aos Contratos Inteligentes e NFTs";
   const courseDescription2 = "Explore os fundamentos dos contratos inteligentes e NFTs, incluindo criação, implementação e casos de uso práticos";
-  const courseImageURI2 = "https://red-wee-meerkat-231.mypinata.cloud/ipfs/QmPnx58FXC7rpvVJNEAndQsbEnejKm4RSBuYG9yuSiN1e6";
+  const courseImageURI2 = "https://t.jus.com.br/R8IHJsRjfPm43eMrnGYfGsHKQhM=/704x400/smart/assets.jus.com.br/system/file/913/8a0a9c174e12be6bddd524509c8ac5e6.png";
   const coursePrice2 = 1
   
   const courseName3 = "Certificação em Segurança de Contratos Inteligentes e NFTs";
   const courseDescription3 = "Domine as melhores práticas de segurança para contratos inteligentes e NFTs, identificando e mitigando vulnerabilidades comuns";
-  const courseImageURI3 = "https://red-wee-meerkat-231.mypinata.cloud/ipfs/QmeqiP2diTu9QvYAZtC1PtvEo9u2njD3G5nQyiNKrtpv5P";
+  const courseImageURI3 = "https://pixelplex.io/wp-content/uploads/2022/02/nft-marketplace-security-main-1600-1.jpg";
   const coursePrice3 = 100
   
   const courseName4 = "Curso Avançado de Blockchain e Finanças Descentralizadas (DeFi)";
   const courseDescription4 = "Aprofunde-se na tecnologia blockchain, explorando protocolos DeFi, como empréstimos, staking e governança descentralizada";
-  const courseImageURI4 = "https://red-wee-meerkat-231.mypinata.cloud/ipfs/QmRiTbtJQF3YnBCNkTGGKQQnX4q9GNeLGUM2nJZJKruorJ";
+  const courseImageURI4 = "https://investidorsardinha.r7.com/wp-content/uploads/2022/09/defi-o-que-e-como-funciona-e-para-que-serve-1024x576.jpg.webp";
   const coursePrice4 = 55
   
   const courseName5 = "Blockchain para Desenvolvedores Web";
   const courseDescription5 = "Descubra como integrar blockchain em aplicativos web, abordando conceitos básicos, implementação de transações e interação com contratos inteligentes";
-  const courseImageURI5 = "https://red-wee-meerkat-231.mypinata.cloud/ipfs/QmPnx58FXC7rpvVJNEAndQsbEnejKm4RSBuYG9yuSiN1e6";
+  const courseImageURI5 = "https://cartoriosdopara.com.br/wp-content/uploads/2023/04/blockchain.jpg";
   const coursePrice5 = 186
   
   const course1Lesson1 = {
       lessonId: 1,
-      lessonName: "Introdução à Tecnologia Blockchain e Ethereum",
-      lessonContent: "Este módulo fornecerá uma visão geral da tecnologia blockchain, com foco especial na plataforma Ethereum. Os alunos aprenderão os fundamentos da blockchain, contratos inteligentes e como interagir com a rede Ethereum",
+      lessonName: "Introdução à Digital Real (DREX)",
+      lessonContent: "Este módulo oferece uma visão geral da Digital Real (DREX), incluindo seu propósito, funcionamento e impacto na economia brasileira. Os alunos serão introduzidos aos conceitos básicos de CBDCs e às características distintas da DREX.",
       mandatory: true,
       minimumPassingScore: 60,
-      lessonQuestion: "Explique o processo de consenso na blockchain Ethereum e como ele difere dos sistemas tradicionais de banco de dados.",
-      lessonDocURI : "https://goblockchain.io/wp-content/uploads/2021/09/NFT-Token-Nao-Fungivel-Report.pdf",
+      lessonQuestion: "O que é uma CBDC e qual é o papel da Digital Real (DREX) no sistema financeiro brasileiro? Quais são os benefícios e desafios associados à implementação da DREX? Como a DREX difere das moedas digitais existentes, como criptomoedas e stablecoins?",
+      lessonDocURI : "https://repositorio.animaeducacao.com.br/bitstreams/520c518e-aa09-436b-b405-a5d18c370f1e/download",
       lessonAnswer: ""
   };
 
   const course1Lesson2 = {
       lessonId: 2,
-      lessonName: "Desenvolvimento de Contratos Inteligentes",
-      lessonContent: "Neste módulo, os alunos mergulharão no desenvolvimento de contratos inteligentes usando Solidity, a linguagem de programação padrão para contratos inteligentes na Ethereum. Eles aprenderão a escrever, compilar e implantar contratos inteligentes na blockchain",
+      lessonName: "Desenvolvimento de Aplicações Financeiras com DREX",
+      lessonContent: "Neste módulo, os alunos aprenderão a desenvolver aplicações financeiras utilizando a Digital Real (DREX). Eles explorarão casos de uso práticos, como pagamentos eletrônicos, remessas e serviços bancários digitais, e aprenderão a integrar a DREX em suas soluções",
       mandatory: true,
       minimumPassingScore: 60,
-      lessonQuestion: "Descreva o ciclo de vida de um contrato inteligente na Ethereum, incluindo compilação, implantação e execução",
-      lessonDocURI : "https://goblockchain.io/wp-content/uploads/2021/09/NFT-Token-Nao-Fungivel-Report.pdf",
+      lessonQuestion: "Quais são os principais casos de uso da DREX em aplicações financeiras? Como você pode integrar a DREX em um aplicativo de pagamentos eletrônicos? Quais são os desafios técnicos ao desenvolver aplicações financeiras com a DREX?",
+      lessonDocURI : "https://repositorio.animaeducacao.com.br/bitstreams/520c518e-aa09-436b-b405-a5d18c370f1e/download",
       lessonAnswer: ""
     };
     
     const course1Lesson3 = {
       lessonId: 3,
-      lessonName: "Construção de Interfaces de Usuário Descentralizadas (DApp UI)",
-      lessonContent: "Este módulo se concentrará na criação de interfaces de usuário amigáveis e eficientes para DApps. Os alunos aprenderão a utilizar ferramentas como Web3.js e React.js para conectar suas aplicações front-end com os contratos inteligentes na blockchain",
+      lessonName: "Regulação e Segurança na Utilização da DREX",
+      lessonContent: "Este módulo aborda questões regulatórias e de segurança relacionadas à utilização da Digital Real (DREX). Os alunos aprenderão sobre políticas governamentais, conformidade regulatória, medidas de segurança cibernética e proteção de dados na era da CBDC.",
       mandatory: false,
       minimumPassingScore: 60,
-      lessonQuestion: "Como você projetaria uma interface de usuário eficiente para uma DApp usando React.js e Web3.js?",
-      lessonDocURI : "https://goblockchain.io/wp-content/uploads/2021/09/NFT-Token-Nao-Fungivel-Report.pdf",
+      lessonQuestion: "Quais são os principais requisitos regulatórios para o desenvolvimento e operação de aplicações com a DREX? Como você pode garantir a segurança cibernética e a proteção de dados ao lidar com transações na DREX? Qual é o papel do Banco Central do Brasil na regulamentação e supervisão da DREX?",
+      lessonDocURI : "https://repositorio.animaeducacao.com.br/bitstreams/520c518e-aa09-436b-b405-a5d18c370f1e/download",
       lessonAnswer: ""
   };
   const course1Lessons = [course1Lesson1, course1Lesson2, course1Lesson3];
