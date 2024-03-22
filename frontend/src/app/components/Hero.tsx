@@ -1,6 +1,5 @@
 'use client'
-import React from 'react'
-import Button from './Button'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Images from '../services/Images'
 import { FaGraduationCap } from 'react-icons/fa'
@@ -9,7 +8,13 @@ import LinkButton from './LinkButton'
 import { useAccount } from 'wagmi'
 
 function Hero() {
-    const {address} = useAccount()
+    const { status } = useAccount()
+    const [statusState, setStatusState] = useState<any>('')
+
+    useEffect(() => {
+        setStatusState(status)
+    }, [status])
+
     return (
         <div className='flex flex-col md:flex-row-reverse items-center w-full justify-center gap-3'>
             <div className="flex w-full items-center justify-center">
@@ -24,7 +29,7 @@ function Hero() {
                 <div className="flex flex-row gap-4 w-full px-4 justify-end">
                     <LinkButton color='blue' icon={<FaGraduationCap />} className='w-full' url={'/all-courses'}>Cursos</LinkButton>
                     {
-                        !address &&
+                        statusState !== 'connected' &&
                         <LinkButton color='gray' icon={<MdLogin />} className='w-full' url={'/login'}>Login</LinkButton>
                     }
                 </div>
