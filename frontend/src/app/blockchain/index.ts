@@ -1,7 +1,13 @@
-import smartContractABI from "./AcademicManager.json";
+const AcademicManagerSmartContractAddress = process.env.NEXT_PUBLIC_CHAIN === 'OPTIMISM' ? 
+  '0xD9BC24A2C50358915BEB34E3F3B115576D97a663' : '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+  const CertificateNFTSmartContractAddress = process.env.NEXT_PUBLIC_CHAIN === 'OPTIMISM' ?
+   '0xc2000614735f408753236DB15D3e344924e8d3bc' : '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512';
 
-const AcademicManagerSmartContractAddress = process.env.NEXT_PUBLIC_ACADEMIC_MANAGER_ADDRESS
-const CertificateNFTSmartContractAddress = process.env.NEXT_PUBLIC_CERTIFAI_ADDRESS;
+// const AcademicManagerSmartContractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+// const CertificateNFTSmartContractAddress = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512';
+// const AcademicManagerSmartContractAddressSEPOLIA = '0xD9BC24A2C50358915BEB34E3F3B115576D97a663';
+// const CertificateNFTSmartContractAddressSEPOLIA = '0xc2000614735f408753236DB15D3e344924e8d3bc';
+
 const CertificateNFTSmartContractABI =  [
   {
     "inputs": [
