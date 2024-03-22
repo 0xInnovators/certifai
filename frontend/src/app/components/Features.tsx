@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 
 interface FeaturesProps {
@@ -13,7 +13,14 @@ interface FeaturesProps {
 }
 
 function Features({ children, image, title, to, description, reverse }: FeaturesProps) {
-    const { address } = useAccount()
+    const { status } = useAccount()
+    const [statusState, setStatusState] = useState<any>('')
+
+    useEffect(() => {
+        setStatusState(status)
+    }, [status])
+
+
     return (
         <div className={`flex flex-col md:flex-row text-gray-300 p-2 gap-6 ${reverse ? 'md:flex-row-reverse' : ''}`}>
             <div className="w-full items-center justify-center flex">
@@ -28,7 +35,7 @@ function Features({ children, image, title, to, description, reverse }: Features
                 <h2 className="w-full">{title}</h2>
                 <h3 className="w-full text-3xl font-extrabold">{to}</h3>
                 <p className="text-justify font-semibold">{description}</p>
-                {address && <>
+                {statusState ==='connected' && <>
                     {children}
                 </>}
             </div>
