@@ -4,7 +4,11 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'www.affigueiredo.com.br',
+                hostname: '*',
+            },
+            {
+                protocol: 'http',
+                hostname: '*',
             }
         ]
     }
