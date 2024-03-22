@@ -53,6 +53,11 @@ function CreateCoursePage() {
       ToastService.notifyError("Digite o conteúdo do módulo");
       return;
     }
+
+    if (lessonDocURI.length < 4) {
+      ToastService.notifyError("Informe o link do conteúdo");
+      return;
+    }
     const newLesson: Lesson = {
       lessonId: lessons.length,
       lessonName: lessonName,

@@ -1,8 +1,8 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CgMenuRight } from 'react-icons/cg'
 import Menu from './Menu'
-import { useAccount, useDisconnect } from 'wagmi'
+import { useAccount, useAccountEffect, useDisconnect, useConnect } from 'wagmi'
 import FormatService from '../services/FormatService'
 import { MdClose, MdLogin } from 'react-icons/md'
 import Link from 'next/link'
@@ -13,8 +13,13 @@ import { usePathname } from 'next/navigation'
 function NavBar() {
     const [openMenu, setOpenMenu] = useState(false)
     const { disconnect } = useDisconnect()
-    const { address } = useAccount()
     const pathName = usePathname()
+    const { address, status } = useAccount()
+    const [statusState, setStatusState] = useState<any>('')
+
+    useEffect(() => {
+        setStatusState(status)
+    }, [status])
 
     const handleMenu = () => {
         if (openMenu) {
@@ -44,8 +49,7 @@ function NavBar() {
                             <Link className='hidden lg:block text-center transition-all ease-in-out hover:scale-110' href='#team'>Time</Link>
                             </>
                         }
-
-                        {address ?
+                        {statusState === 'connected' ?
                             (
                                 <div className='flex flex-row justify-end'>
                                     <div className="flex gap-3 items-center">

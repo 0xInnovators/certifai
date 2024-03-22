@@ -30,7 +30,9 @@ function MintNftPage() {
       });
       setStudentCourses(result);
     }
-    handleFindStudentCourses();
+    if (address){
+      handleFindStudentCourses();
+    }
   }, [address]);
 
   return (
