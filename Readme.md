@@ -19,7 +19,9 @@
 
 - The administrator profile allows to examine and evaluate students enrolled in courses
 
-- dApp: https://certifai-optimism-psi.vercel.app/
+- dApp: https://certifai-optimism-psi.vercel.app
+
+- demo/pitch: https://youtu.be/UVnIkrY-4qY
 
 ## How to
 
