@@ -19,6 +19,8 @@
 
 - The administrator profile allows to examine and evaluate students enrolled in courses
 
+- dApp: https://certifai-optimism-psi.vercel.app/
+
 ## How to
 
 - Add OP Sepolia Testnet network: <https://chainlist.org/chain/11155420>
