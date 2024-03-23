@@ -15,7 +15,7 @@ function AllCourses() {
     address: AcademicManagerSmartContractAddress  as `0x${string}`,
     functionName: "getAllCourses",
   });
-
+  
   useEffect(() => {
     if (Array.isArray(result.data)) {
       setCourses(result.data);

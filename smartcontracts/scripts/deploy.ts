@@ -1,14 +1,25 @@
 import hre from "hardhat";
+import fs from 'fs';
+
+function writeFile(file: string, message: string) {
+  fs.appendFile(file, `${message}\n`, (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+}
 
 async function main() {
   const AM = await hre.ethers.getContractFactory("AcademicManager");
   const am = await AM.deploy();
-  console.log(`AcademicManager deployed to ${await am.getAddress()}`);
-
+  const amAddress = await am.getAddress()
+  console.log(`AcademicManager deployed to ${amAddress}`);
+  
   const CERTIFAI = await hre.ethers.getContractFactory("CERTIFAI");
-  const certifAI = await CERTIFAI.deploy(await am.getAddress());
-  console.log(`CERTIFAI deployed to ${await certifAI.getAddress()}`);
-
+  const certifAI = await CERTIFAI.deploy(amAddress);
+  const certifAIAddress = await certifAI.getAddress();
+  console.log(`CERTIFAI deployed to ${certifAIAddress}`);
+  
   const courseName1 = "Desenvolvimento de Aplicações para DREX: A Nova CBDC Brasileira";
   const courseDescription1 = "Este curso abrange o desenvolvimento de aplicações financeiras para a Digital Real (DREX), a futura Central Bank Digital Currency (CBDC) do Brasil. Os participantes aprenderão a criar soluções inovadoras utilizando a DREX, explorando sua integração com sistemas financeiros e seu impacto na economia brasileira.";
   const courseImageURI1 = "https://finsidersbrasil.com.br/wp-content/plugins/seox-image-magick/imagick_convert.php?width=904&height=508&format=.jpg&quality=91&imagick=uploads.finsidersbrasil.com.br/2024/02/drexBC-1024x580.jpg";
@@ -171,6 +182,15 @@ async function main() {
     await am.createCourse(courseName4, courseDescription4, courseImageURI4, coursePrice4, course4Lessons);
     await am.createCourse(courseName5, courseDescription5, courseImageURI5, coursePrice5, course5Lessons);
     console.log('Courses saved')
+    
+    console.log('Generating new `.env` file.')
+    const file = "/app/generated/.env"
+    fs.writeFileSync(file, '');
+    writeFile(file, `NEXT_PUBLIC_CHAIN=HARDHAT`);
+    writeFile(file, `NEXT_PUBLIC_ACADEMIC_MANAGER_ADDRESS=${amAddress}`);
+    writeFile(file, `NEXT_PUBLIC_CERTIFAI_ADDRESS=${certifAIAddress}`);
+    console.log('`.env` file created.')
+    
   } catch (error) {
     console.log('Courses error', error)
   }
